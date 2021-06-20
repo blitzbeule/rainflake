@@ -1,6 +1,5 @@
 package io.github.blitzbeule;
 
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
@@ -49,6 +48,19 @@ public class Main {
         if(args.length == 0) {
             port = 8080;
             idWorker = new IdWorker(1577836800000L, 1);
+        } else if(args.length == 1) {
+            if (!(args[0].equalsIgnoreCase("env"))) {
+                throw new IllegalArgumentException("Wrong count of parameters");
+            }
+            port = Integer.parseInt(System.getenv("RF_PORT"));
+            idWorker = new IdWorker(
+                    Long.parseLong(System.getenv("RF_EPOCH")),
+                    Integer.parseInt(System.getenv("RF_NODEID")),
+                    Integer.parseInt(System.getenv("RF_UNUSED_BITS")),
+                    Integer.parseInt(System.getenv("RF_EPOCH_BITS")),
+                    Integer.parseInt(System.getenv("RF_NODE_ID_BITS")),
+                    Integer.parseInt(System.getenv("RF_SEQUENCE_BITS"))
+            );
         } else if(args.length == 2){
             port = Integer.parseInt(args[0]);
             idWorker = new IdWorker(1577836800000L, Integer.parseInt(args[1]));

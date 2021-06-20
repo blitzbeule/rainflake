@@ -1,0 +1,15 @@
+FROM openjdk:16
+ENV RF_PORT=8080
+ENV RF_EPOCH=1577836800000
+ENV RF_NODEID=1
+ENV RF_UNUSED_BITS=1
+ENV RF_EPOCH_BITS=41
+ENV RF_NODE_ID_BITS=10
+ENV RF_SEQUENCE_BITS=12
+
+EXPOSE ${RF_PORT}
+
+COPY ./out/artifacts/rainflake_jar /rainflake
+WORKDIR /rainflake
+
+ENTRYPOINT ["java", "-jar", "rainflake.jar", "env"]
