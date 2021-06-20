@@ -24,7 +24,9 @@ public class GenIdRoute implements HttpHandler {
             ex.getResponseBody().close();
         } else {
             ex.getRequestBody().close();
-            byte[] r = ("{\"id\":\"" + idWorker.nextId() + "\"}").getBytes();
+            byte[] r = ("{\"id\":\"" + idWorker.nextId() + "\"}").getBytes(StandardCharsets.UTF_8);
+            ex.getResponseHeaders().set("Content-Type", "application/json; charset=utf-8");
+            ex.getResponseHeaders().set("Cache-Control", "no-cache, no-store, must-revalidate");
             ex.sendResponseHeaders(200, 0);
             ex.getResponseBody().write(r);
             ex.getResponseBody().close();
