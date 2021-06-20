@@ -37,6 +37,12 @@ public class Main {
         System.out.println("Server started!");
     }
 
+    public synchronized  void stop() {
+        System.out.println("Starting to stop the server ...");
+        httpServer.stop(1);
+        System.out.println("Stopped Server!");
+    }
+
     public static void main(String[] args) {
         int port;
         IdWorker idWorker;
@@ -63,6 +69,15 @@ public class Main {
 	        throw new IllegalArgumentException("Wrong count of parameters");
         }
 
-	    new Main(port, idWorker).start();
+	    Main main = new Main(port, idWorker);
+        main.start();
+
+        var shutdownListener = new Thread(() -> {
+            System.out.println("Preparing shutdown...");
+            main.stop();
+            System.out.println("Exit now!");
+        });
+
+        Runtime.getRuntime().addShutdownHook(shutdownListener);
     }
 }
