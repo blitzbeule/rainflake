@@ -1,0 +1,36 @@
+openapi: 3.0.0
+info:
+  title: Rainflake
+  version: 0.1.0
+  description: Api for the Rainflake server
+  license:
+    name: BSD-3-Clause
+    url: 'https://opensource.org/licenses/BSD-3-Clause'
+servers:
+  - url: 'http://localhost:{port}'
+    variables:
+      port:
+        default: '8080'
+        description: Port to bind the service
+    description: hosting behind an api gateway - for internal use only
+tags:
+  - name: id
+paths:
+  /id:
+    get:
+      summary: get a new rainflake id
+      description: ''
+      operationId: getId
+      tags: [id]
+      responses:
+        200:
+          description: Id created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The requested rainflake id
+                    example: "194458612356091904"
