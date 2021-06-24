@@ -8,14 +8,7 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
-    env:
-      TAGS: blitzbeule/rainflake:stable,blitzbeule/rainflake:${{ github.event.inputs.tag }}
     steps:
-    -
-      name: Check tag
-      if: ${{ github.event.inputs.tag == '-' }}
-      run: |
-        TAGS=blitzbeule/rainflake:stable
     -
       name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
@@ -67,8 +60,7 @@ jobs:
         # List of SSH agent socket or keys to expose to the build
         #ssh: # optional
         # List of tags
-        tags: 
-          ${{ env.TAGS }}
+        tags: blitzbeule/rainflake:stable
         # Sets the target stage to build
         #target: # optional
         # GitHub Token used to authenticate against a repository for Git context
