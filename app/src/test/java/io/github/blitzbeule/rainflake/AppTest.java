@@ -9,5 +9,7 @@ import static org.junit.Assert.*;
 public class AppTest {
     @Test public void testAppHasAGreeting() {
         App classUnderTest = new App(8080, new IdWorker(1577836800000L, 1));
+        classUnderTest.start();
+        assertNotNull("should not be null", classUnderTest.idWorker.nextId());
     }
 }

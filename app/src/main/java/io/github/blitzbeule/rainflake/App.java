@@ -1,17 +1,17 @@
-package io.github.blitzbeule;
+package io.github.blitzbeule.rainflake;
 
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-public class Main {
+public class App {
 
     int port;
     IdWorker idWorker;
     HttpServer httpServer;
 
-    public Main(int port, IdWorker idWorker) {
+    public App(int port, IdWorker idWorker) {
         this.port = port;
         this.idWorker = idWorker;
 
@@ -65,12 +65,12 @@ public class Main {
             port = Integer.parseInt(args[0]);
             idWorker = new IdWorker(1577836800000L, Integer.parseInt(args[1]));
         } else if(args.length == 3) {
-	        port = Integer.parseInt(args[0]);
-	        idWorker = new IdWorker(Long.parseLong(args[2]), Integer.parseInt(args[1]));
+            port = Integer.parseInt(args[0]);
+            idWorker = new IdWorker(Long.parseLong(args[2]), Integer.parseInt(args[1]));
         } else if(args.length == 7) {
-	        port = Integer.parseInt(args[0]);
-	        idWorker = new IdWorker(
-	                Long.parseLong(args[2]),
+            port = Integer.parseInt(args[0]);
+            idWorker = new IdWorker(
+                    Long.parseLong(args[2]),
                     Integer.parseInt(args[1]),
                     Integer.parseInt(args[3]),
                     Integer.parseInt(args[4]),
@@ -78,15 +78,15 @@ public class Main {
                     Integer.parseInt(args[6])
             );
         } else {
-	        throw new IllegalArgumentException("Wrong count of parameters");
+            throw new IllegalArgumentException("Wrong count of parameters");
         }
 
-	    Main main = new Main(port, idWorker);
-        main.start();
+        App app = new App(port, idWorker);
+        app.start();
 
         var shutdownListener = new Thread(() -> {
             System.out.println("Preparing shutdown...");
-            main.stop();
+            app.stop();
             System.out.println("Exit now!");
         });
 

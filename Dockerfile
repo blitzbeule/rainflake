@@ -1,4 +1,9 @@
-FROM openjdk:16
+FROM gradle:7.0.2-jdk16 AS build
+COPY --chown=gradle:gradle . /home/gradle/rainflake
+WORKDIR /home/gradle/rainflake
+RUN gradle clean build shadowJar --no-daemon
+
+FROM openjdk:16-slim
 ENV RF_PORT=8080
 ENV RF_EPOCH=1577836800000
 ENV RF_NODEID=1
@@ -9,7 +14,9 @@ ENV RF_SEQUENCE_BITS=12
 
 EXPOSE ${RF_PORT}
 
-COPY ./out/artifacts/rainflake_jar /rainflake
-WORKDIR /rainflake
+RUN mkdir /app
+
+COPY --from=build /home/gradle/rainflake/app/build/libs/shadow.jar /app/rainflake.jar
+WORKDIR /app
 
 ENTRYPOINT ["java", "-jar", "rainflake.jar", "env"]
