@@ -14,7 +14,7 @@ jobs:
         echo "blitzbeule/rainflake:stable,blitzbeule/rainflake:\${{ github.event.inputs.tag }}" > $TAGS
     -
       name: Check tag
-      if: ${{ github.event.inputs.tag == "-" }}
+      if: ${{ github.event.inputs.tag == '-' }}
       run: |
         echo "blitzbeule/rainflake:stable" > $TAGS
     -
