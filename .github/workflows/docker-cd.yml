@@ -1,11 +1,8 @@
 name: Build Image
 on:
-  workflow_dispatch:
-    inputs:
-      tags:
-        description: 'explicit version number(s)'
-        default: 'blitzbeule/rainflake:latest'
-        required: true
+  push:
+    branches:
+      - main
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -61,7 +58,7 @@ jobs:
         # List of SSH agent socket or keys to expose to the build
         #ssh: # optional
         # List of tags
-        tags: ${{ github.event.inputs.tags }}
+        tags: blitzbeule/rainflake:stable
         # Sets the target stage to build
         #target: # optional
         # GitHub Token used to authenticate against a repository for Git context
