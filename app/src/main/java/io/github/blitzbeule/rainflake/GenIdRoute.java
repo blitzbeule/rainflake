@@ -1,4 +1,4 @@
-package io.github.blitzbeule;
+package io.github.blitzbeule.rainflake;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;

@@ -1,0 +1,30 @@
+plugins {
+    // Apply the application plugin to add support for building a CLI application in Java.
+    id 'com.github.johnrengelman.shadow' version'7.0.0'
+    id 'java'
+}
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+
+dependencies {
+    // Use JUnit test framework.
+    testImplementation 'junit:junit:4.13.1'
+
+    // This dependency is used by the application.
+    //implementation 'com.google.guava:guava:30.0-jre'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'io.github.blitzbeule.rainflake.App'
+    }
+}
+
+shadowJar {
+    archiveBaseName.set("shadow")
+    archiveClassifier.set('')
+    minimize()
+}
