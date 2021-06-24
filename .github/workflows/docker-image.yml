@@ -8,15 +8,14 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    env:
+      TAGS: blitzbeule/rainflake:stable,blitzbeule/rainflake:${{ github.event.inputs.tag }}
     steps:
-    - name: Set Tag
-      run: |
-        echo "blitzbeule/rainflake:stable,blitzbeule/rainflake:${{ github.event.inputs.tag }}" >> $TAGS
     -
       name: Check tag
       if: ${{ github.event.inputs.tag == '-' }}
       run: |
-        echo "blitzbeule/rainflake:stable" >> $TAGS
+        echo "blitzbeule/rainflake:stable" > $TAGS
     -
       name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
