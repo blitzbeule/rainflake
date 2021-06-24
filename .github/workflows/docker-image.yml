@@ -2,7 +2,7 @@ name: Build Image
 on:
   workflow_dispatch:
     inputs:
-      version:
+      tag:
         description: 'explicit version number'
         required: true
 
@@ -63,7 +63,7 @@ jobs:
         # List of tags
         tags: 
           blitzbeule/rainflake:test
-          blitzbeule/rainflake:${{ inputs.version }}
+          blitzbeule/rainflake:${{ inputs.tag }}
         # Sets the target stage to build
         #target: # optional
         # GitHub Token used to authenticate against a repository for Git context
